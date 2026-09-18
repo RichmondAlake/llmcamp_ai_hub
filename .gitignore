@@ -1,0 +1,25 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+
+# Agent data and local runtimes
+memory/
+**/memory/
+.memorizz/
+**/.memorizz/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
+
+# Local appbook state, dependencies, and validation screenshots
+**/appbook/.data/
+node_modules/
+
+# Local presentation; excluded from the public attendee repository
+agent_memory/Unpacking_Agent_Memory_Patterns_in_GPT-6_Astra_v8.pptx
