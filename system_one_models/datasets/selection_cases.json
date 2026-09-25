@@ -1,0 +1,62 @@
+[
+  [
+    "t01",
+    "tool",
+    "Show the current tables without changing anything.",
+    [
+      "inspect_schema"
+    ]
+  ],
+  [
+    "t02",
+    "tool",
+    "Draft an email to Nora; do not send it.",
+    [
+      "draft_email"
+    ]
+  ],
+  [
+    "t03",
+    "tool",
+    "Explain what a database migration is. Do not execute tools.",
+    []
+  ],
+  [
+    "t04",
+    "tool",
+    "What is the weather in Bath?",
+    [
+      "weather"
+    ]
+  ],
+  [
+    "k01",
+    "skill",
+    "Meadow staging cannot connect to its database.",
+    [
+      "staging_connection"
+    ]
+  ],
+  [
+    "k02",
+    "skill",
+    "Our Meadow timestamps shift again each time we retry.",
+    [
+      "clock_recovery"
+    ]
+  ],
+  [
+    "k03",
+    "skill",
+    "Harbor staging cannot connect to its database.",
+    [
+      "harbor_connection"
+    ]
+  ],
+  [
+    "k04",
+    "skill",
+    "Tell me a joke about databases.",
+    []
+  ]
+]

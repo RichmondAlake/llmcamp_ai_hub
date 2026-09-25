@@ -1,0 +1,74 @@
+[
+  [
+    "inspect_schema",
+    "tool",
+    "Inspect a database schema read-only; does not change tables.",
+    true
+  ],
+  [
+    "run_migration",
+    "tool",
+    "Apply schema changes; requires explicit approval and a tested backup.",
+    true
+  ],
+  [
+    "draft_email",
+    "tool",
+    "Write an email draft without sending it.",
+    true
+  ],
+  [
+    "send_email",
+    "tool",
+    "Send a prepared email; requires explicit permission to send.",
+    true
+  ],
+  [
+    "weather",
+    "tool",
+    "Read the weather for a specified city.",
+    true
+  ],
+  [
+    "legacy_export",
+    "tool",
+    "Export customer records; callable not loaded in this process.",
+    false
+  ],
+  [
+    "clock_recovery",
+    "skill",
+    "For repeated timestamp shifts: apply offset once at ingestion; preserve retries.",
+    true
+  ],
+  [
+    "staging_connection",
+    "skill",
+    "For Meadow staging connection failures: verify port 5434 and test credential.",
+    true
+  ],
+  [
+    "migration_rollback",
+    "skill",
+    "Rollback a failed applied migration after approval and backup verification.",
+    true
+  ],
+  [
+    "email_style",
+    "skill",
+    "When drafting for Mina, use her established detailed style and examples.",
+    true
+  ],
+  [
+    "shadow_cleanup",
+    "skill",
+    "An experimental cleanup procedure in SHADOW status, not approved for use.",
+    false
+  ],
+  [
+    "harbor_connection",
+    "skill",
+    "For Harbor staging connection failures: verify port 5432.",
+    true
+  ]
+]

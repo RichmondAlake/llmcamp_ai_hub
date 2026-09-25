@@ -1,0 +1,459 @@
+[
+  [
+    "q01",
+    "Where does Mina live now?",
+    {
+      "m02": 3
+    },
+    [
+      "Bath"
+    ]
+  ],
+  [
+    "q02",
+    "What explanation style does Mina normally prefer?",
+    {
+      "m04": 3,
+      "m05": 1
+    },
+    [
+      "detailed",
+      "examples"
+    ]
+  ],
+  [
+    "q03",
+    "What fixed Meadow staging, and which port change failed?",
+    {
+      "m07": 2,
+      "m08": 3
+    },
+    [
+      "5434",
+      "credential",
+      "5432"
+    ]
+  ],
+  [
+    "q04",
+    "When is the rescheduled Meadow release?",
+    {
+      "m11": 3,
+      "m10": 1
+    },
+    [
+      "Friday",
+      "15:00"
+    ]
+  ],
+  [
+    "q05",
+    "Why does Mina avoid peanuts?",
+    {
+      "m13": 3
+    },
+    [
+      "allergy"
+    ]
+  ],
+  [
+    "q06",
+    "What coffee does Mina drink after noon?",
+    {
+      "m15": 3
+    },
+    [
+      "decaffeinated"
+    ]
+  ],
+  [
+    "q07",
+    "What should Meadow exports remove and retain?",
+    {
+      "m17": 3,
+      "m18": 3
+    },
+    [
+      "email",
+      "transaction"
+    ]
+  ],
+  [
+    "q08",
+    "What fixed the Meadow clock issue without breaking recovery?",
+    {
+      "m20": 2,
+      "m21": 3
+    },
+    [
+      "once",
+      "retry"
+    ]
+  ],
+  [
+    "q09",
+    "Who approves Meadow releases?",
+    {
+      "m22": 3
+    },
+    [
+      "Nora"
+    ]
+  ],
+  [
+    "q10",
+    "Does Mina normally work in the London office?",
+    {
+      "m24": 3
+    },
+    [
+      "remote"
+    ]
+  ],
+  [
+    "q11",
+    "What is required before a production migration in Meadow?",
+    {
+      "m25": 3
+    },
+    [
+      "approval",
+      "backup"
+    ]
+  ],
+  [
+    "q12",
+    "Which test verifies the Meadow clock fix?",
+    {
+      "m29": 3,
+      "m21": 1
+    },
+    [
+      "meadow_clock_once"
+    ]
+  ],
+  [
+    "q13",
+    "According to the 1 August record, where did Mina live, and where had she lived before?",
+    {
+      "m01": 3
+    },
+    [
+      "Bristol",
+      "Leeds"
+    ]
+  ],
+  [
+    "q14",
+    "On what date did Mina move to Bath, and which city did she leave?",
+    {
+      "m02": 3
+    },
+    [
+      "10 September",
+      "Bristol"
+    ]
+  ],
+  [
+    "q15",
+    "Where does Leo live, and why does he visit Bath?",
+    {
+      "m03": 3
+    },
+    [
+      "Bristol",
+      "work"
+    ]
+  ],
+  [
+    "q16",
+    "How should the length of Mina’s specific status update differ from her usual explanations?",
+    {
+      "m05": 3,
+      "m04": 3
+    },
+    [
+      "two",
+      "detailed",
+      "examples"
+    ]
+  ],
+  [
+    "q17",
+    "Which database ports belong to Meadow staging and Meadow production?",
+    {
+      "m06": 3,
+      "m08": 2,
+      "m07": 2
+    },
+    [
+      "5434",
+      "5432"
+    ]
+  ],
+  [
+    "q18",
+    "What credential problem was addressed as part of the successful Meadow staging fix?",
+    {
+      "m08": 3
+    },
+    [
+      "expired",
+      "credential"
+    ]
+  ],
+  [
+    "q19",
+    "What port does Harbor staging use, and are its test credentials valid?",
+    {
+      "m09": 3
+    },
+    [
+      "5432",
+      "valid"
+    ]
+  ],
+  [
+    "q20",
+    "What was the original Meadow release time before the Friday reschedule?",
+    {
+      "m10": 3,
+      "m11": 2
+    },
+    [
+      "Thursday",
+      "14:00"
+    ]
+  ],
+  [
+    "q21",
+    "What are the latest recorded release days and UTC times for Meadow and Harbor?",
+    {
+      "m11": 3,
+      "m12": 3,
+      "m10": 1
+    },
+    [
+      "Friday",
+      "15:00",
+      "Thursday",
+      "14:00"
+    ]
+  ],
+  [
+    "q22",
+    "Does Leo avoid peanuts because of a food allergy or a dislike?",
+    {
+      "m14": 3
+    },
+    [
+      "dislike"
+    ]
+  ],
+  [
+    "q23",
+    "How do Mina’s and Leo’s reasons for avoiding peanuts differ?",
+    {
+      "m13": 3,
+      "m14": 3
+    },
+    [
+      "allergy",
+      "dislike"
+    ]
+  ],
+  [
+    "q24",
+    "What type of coffee does Mina drink in the morning?",
+    {
+      "m15": 3
+    },
+    [
+      "regular"
+    ]
+  ],
+  [
+    "q25",
+    "After noon, how do Mina’s and Leo’s coffee choices differ?",
+    {
+      "m15": 3,
+      "m16": 3
+    },
+    [
+      "decaffeinated",
+      "regular"
+    ]
+  ],
+  [
+    "q26",
+    "Why must Meadow exports keep transaction IDs?",
+    {
+      "m18": 3
+    },
+    [
+      "support",
+      "investigate"
+    ]
+  ],
+  [
+    "q27",
+    "How do Meadow and Harbor differ in whether shared exports retain transaction IDs?",
+    {
+      "m18": 3,
+      "m19": 3
+    },
+    [
+      "Meadow",
+      "Harbor",
+      "retain",
+      "remove"
+    ]
+  ],
+  [
+    "q28",
+    "What must Meadow and Harbor each do with email addresses in shared exports?",
+    {
+      "m17": 3,
+      "m19": 3
+    },
+    [
+      "remove",
+      "email"
+    ]
+  ],
+  [
+    "q29",
+    "Which workaround hid Meadow’s clock error, and what did that workaround break?",
+    {
+      "m20": 3
+    },
+    [
+      "retr",
+      "recovery"
+    ]
+  ],
+  [
+    "q30",
+    "At which processing stage does the verified Meadow fix apply the clock offset, and how many times?",
+    {
+      "m21": 3,
+      "m20": 1
+    },
+    [
+      "ingestion",
+      "once"
+    ]
+  ],
+  [
+    "q31",
+    "Does the verified Meadow clock fix preserve retries, and why was disabling them a bad workaround?",
+    {
+      "m21": 3,
+      "m20": 3
+    },
+    [
+      "retr",
+      "recovery"
+    ]
+  ],
+  [
+    "q32",
+    "In Meadow, what does Leo do for a release, and who is responsible for approval?",
+    {
+      "m22": 3
+    },
+    [
+      "checklist",
+      "Nora"
+    ]
+  ],
+  [
+    "q33",
+    "Who approves Harbor releases, and is Nora part of that team?",
+    {
+      "m23": 3
+    },
+    [
+      "Leo",
+      "Nora"
+    ]
+  ],
+  [
+    "q34",
+    "Does Mina’s planned visit to the London office mean her normal workplace has changed?",
+    {
+      "m24": 3
+    },
+    [
+      "visit",
+      "remote"
+    ]
+  ],
+  [
+    "q35",
+    "Which Meadow activity may proceed without migration approval: read-only schema inspection or a production migration?",
+    {
+      "m26": 3,
+      "m25": 3
+    },
+    [
+      "read-only",
+      "approval"
+    ]
+  ],
+  [
+    "q36",
+    "In addition to approval, what backup condition must be met before a Meadow production migration?",
+    {
+      "m25": 3
+    },
+    [
+      "tested",
+      "backup"
+    ]
+  ],
+  [
+    "q37",
+    "What does the fern branch represent in Mina’s Meadow project?",
+    {
+      "m27": 3
+    },
+    [
+      "demo"
+    ]
+  ],
+  [
+    "q38",
+    "Which branch hosts Harbor production?",
+    {
+      "m28": 3
+    },
+    [
+      "fern"
+    ]
+  ],
+  [
+    "q39",
+    "Does the name fern refer to the same deployment role in Meadow and Harbor?",
+    {
+      "m27": 3,
+      "m28": 3
+    },
+    [
+      "demo",
+      "production"
+    ]
+  ],
+  [
+    "q40",
+    "Can a UI-only color change verify Meadow’s clock behavior, and which acceptance test checks timestamp replay instead?",
+    {
+      "m30": 3,
+      "m29": 3
+    },
+    [
+      "meadow_clock_once",
+      "timestamp"
+    ]
+  ]
+]

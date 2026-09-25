@@ -1,0 +1,38 @@
+[
+  [
+    "cq1",
+    "When is the rescheduled Meadow release?",
+    "c01",
+    "Nora changed it to Friday at 15:00 UTC. This replaces Thursday."
+  ],
+  [
+    "cq2",
+    "What fixed the staging connection?",
+    "c01",
+    "Restoring port 5434 and refreshing the test credential fixed it."
+  ],
+  [
+    "cq3",
+    "What must precede a production migration?",
+    "c02",
+    "Production migrations need explicit approval. They also need a tested backup."
+  ],
+  [
+    "cq4",
+    "What must customer exports remove and retain?",
+    "c02",
+    "Customer exports remove email addresses. Transaction IDs must remain for support."
+  ],
+  [
+    "cq5",
+    "¿Qué puerto usa Meadow staging?",
+    "c03",
+    "El proyecto Meadow usa el puerto 5434 en staging."
+  ],
+  [
+    "cq6",
+    "Who can approve the release rather than prepare its checklist?",
+    "c03",
+    "Nora approves the release. Leo prepares the checklist but cannot approve it."
+  ]
+]

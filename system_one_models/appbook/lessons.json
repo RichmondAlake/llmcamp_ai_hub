@@ -1,0 +1,1532 @@
+{
+  "reranking": {
+    "lab": "reranking",
+    "title": "Reranking memory: Jev, Voyage, an LLM, and an open-source model",
+    "data": [
+      "DOCUMENTS",
+      "QUESTIONS"
+    ],
+    "goal": "Find useful evidence in a fixed Oracle candidate pool, then discover whether better ordering helps a fixed OpenAI reader.",
+    "story": "Mina is an engineer on the Meadow project. Its incident log contains two attempts to fix staging: changing the database port to 5432 failed; restoring port 5434 and refreshing the expired test credential worked. When she asks what fixed staging, the agent must find the successful action and preserve the warning about the failed one.",
+    "question": "Does a specific reranking method improve precision, recall, MRR and graded nDCG enough to justify its delay and cost?",
+    "method": "We compare original Oracle cosine order, Voyage’s dedicated reranker, an OpenAI model that generates scores, a local MiniLM cross-encoder, and three Jev recipes. **Noul** asks independent evidence questions; **Score** uses a concrete relevance rubric; **Choice** compares options in the same pool. They are different algorithms, not three names for the same call.\n\nEach question receives the same 20 frozen candidates, and each method selects three. We keep original text, metadata and IDs intact. No method prunes the pool before scoring. Providers never receive the relevance labels. An **arm** is one method in the comparison, such as Voyage, the LLM, or Jev Score. We change the order in which methods run for each question: Voyage might run first on question 1, while Jev runs first on question 2. This reduces the chance that one method always benefits from warmer connections or quieter API traffic. It does not shuffle the candidate documents, and six questions cannot eliminate timing noise. Candidate retrieval and ingestion are shared costs, not charged once per method.\n\nThe local model uses Transformers directly. Its initial load/download time is separate from warm inference latency. Its external API charge is zero; compute cost remains unknown unless you supply an hourly estimate. It truncates pairs at 512 local tokens, so verify that your own documents fit or explicitly test truncation as a condition.\n\nProvider configuration: **voyage-4** creates embeddings; **rerank-2.5** is the dedicated Voyage reranker. New protocol-v2 ranking calls receive the same document text; retrieval distances and private labels are excluded. Different prompts and primitive recipes are intentional algorithm differences, not identical-model conditions.",
+    "interpret": "Recall divides by all labeled relevant memories; precision divides by the selected slots. A relevant item with grade 1 is background; grades 2 and 3 are more useful and receive larger nDCG gains. MRR only rewards the first relevant item, so it cannot establish that all facts needed for a multi-hop answer were found.\n\n`answer_check` is a transparent keyword diagnostic. An incorrect answer containing the expected words can pass. Read the answer and its sources before calling it correct. This notebook does not replace evidence labels with an LLM judge.\n\nA tiny synthetic set is for learning and integration testing. It cannot establish a production winner. Keep a development split for rubric changes, then use untouched conversations and paired, conversation-grouped uncertainty estimates for a real decision.\n\nProtocol v3 uses GPT-6 Luna with reasoning disabled for the short OpenAI tasks; the separate reader comparison keeps medium effort. Reranking readers receive source IDs and text only. Summary thresholds are frozen before test calls, shared costs remain separate, and ledger writes are excluded from decision latency. Synthetic labels and lexical checks do not establish production accuracy.",
+    "exercises": [
+      "Move a gold memory outside the 20-candidate pool. Can any reranker recover it?",
+      "Compare top-1 and top-5, and explain why MRR can improve while complete evidence coverage stays poor.",
+      "Permute candidate order, retaining IDs, and measure Jev’s ranking stability.",
+      "Try 4-level versus 10-level Score on development data; freeze your choice before a held-out test."
+    ],
+    "walkthrough": "Staging is Meadow’s test environment. Its database connection stopped working, and Mina tried two repairs. The first note, m07, records a failed attempt: she changed the port to 5432, but the connection still failed. The next note, m08, records the working repair: restore port 5434 and refresh the expired test credential. Both notes discuss the same incident, so a similarity search could rank the failed attempt first even when the question asks what worked. A reranker reorders these already-retrieved notes according to what the question actually needs. Our test question asks “What fixed Meadow staging, and which port change failed?”, so BOTH notes are relevant: m08 explains the solution and m07 identifies the attempted change to avoid. A similar incident from the Harbor project is the wrong project. Reranking changes document order; it does not rewrite a note or find a document missing from the candidate pool. The other test questions cover separate facts, including Mina’s current home and a corrected release date.",
+    "scope": "The experiment changes the ordering step only. Top-3 evidence then goes to the same OpenAI reader. Compare ranking quality separately from answer quality. The dataset provides 40 authored questions over the same 30 memories. The default run uses the first six. These related questions are not 40 independent conversations; saved notebook outputs retain their original six-question runs.",
+    "diagrams": [
+      {
+        "title": "Use case · from a question to supporting evidence",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Mina asks",
+            "detail": "What fixed Meadow staging?",
+            "icon": "user"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Search returns 20",
+            "detail": "Same frozen candidate pool",
+            "icon": "search"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Read the evidence",
+            "detail": "m07 failed · m08 worked",
+            "icon": "document"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Rerank the pool",
+            "detail": "Useful evidence moves earlier",
+            "icon": "decision"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Keep three memories",
+            "detail": "Include success + failed attempt",
+            "icon": "code"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Answer with sources",
+            "detail": "5434 + refreshed credential",
+            "icon": "model"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "query"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "candidate text"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "compare relevance"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "ordered IDs"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "selected evidence"
+          }
+        ],
+        "note": "Illustration of the task, not a fabricated model result. The Inspect section shows each actual run."
+      },
+      {
+        "title": "Baseline architecture · semantic retrieval only",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "User question",
+            "detail": "One memory question",
+            "icon": "user"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Voyage embeddings",
+            "detail": "voyage-4 · query input",
+            "icon": "vector"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Oracle AI Database",
+            "detail": "Exact cosine search · 20 rows",
+            "icon": "database"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Original order",
+            "detail": "No second-stage model",
+            "icon": "search"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Python top-3",
+            "detail": "Preserve source IDs and text",
+            "icon": "code"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "OpenAI reader",
+            "detail": "Same model across all methods",
+            "icon": "model"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "question"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "1024-D vector"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "20 candidates"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "cosine order"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "three sources"
+          }
+        ],
+        "note": "Before queries: voyage-4 embeds the 30 source memories as document inputs; Oracle stores vectors, original text and provenance."
+      },
+      {
+        "title": "With Jev · replace only the ordering component",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Same question",
+            "detail": "Same retrieval inputs",
+            "icon": "user"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Voyage embeddings",
+            "detail": "Same voyage-4 query vector",
+            "icon": "vector"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Oracle AI Database",
+            "detail": "Same frozen 20 candidates",
+            "icon": "database"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Jev decision API",
+            "detail": "Noul / Score / Choice",
+            "icon": "decision"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Python sort + top-3",
+            "detail": "Stable ties; no pruning",
+            "icon": "code"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Same OpenAI reader",
+            "detail": "Answer and cite source IDs",
+            "icon": "model"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "question"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "1024-D vector"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "text + query"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "scores / probabilities"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "three sources"
+          }
+        ],
+        "note": "Alternative ordering components: Voyage rerank-2.5, OpenAI score generation, or local ms-marco-MiniLM-L-6-v2. Jev is not the embedding model or answer generator."
+      }
+    ],
+    "notebook": "01_reranking.ipynb",
+    "default_cases": 6,
+    "min_cases": 1,
+    "case_dataset": "questions"
+  },
+  "summary": {
+    "lab": "summary",
+    "title": "A quality gate for extracted summaries",
+    "data": [
+      "SUMMARY_CASES"
+    ],
+    "goal": "Verify a proposed memory against its original source, then use explicit code to accept it or request revision.",
+    "story": "The source says: “Production migrations need approval AND a tested backup.” An extractor writes: “Production migrations need approval.” That summary is fluent and factually supported, but it drops a required condition. Storing it as trusted memory could lead an agent to recommend a migration without a backup.",
+    "question": "Can Jev catch unsupported claims, attribution mistakes and missing conditions without rejecting too many useful memories?",
+    "method": "Summary generation and verification are separate tasks. OpenAI can generate new text. Jev returns structured assessments of that text. We ask three independent questions: source support, attribution/time/negation, and coverage of action-critical details. The minimum probability is a deliberately conservative policy signal, not a probability that the entire workflow is correct.\n\nThe labeled examples are authored teaching cases. Development and test rows use different source groups. A small threshold grid is selected using development labels only, with five times the penalty for admitting a bad summary. We then inspect the held-out teaching rows. This small sample demonstrates a protocol, not a calibrated production threshold.\n\nCompare a no-gate baseline, Jev and an OpenAI verifier on identical source/summary pairs. Then generate one real summary and assess it. Its correctness remains **human review required**; we never pretend that Jev’s decision is ground truth. A rejected live summary is regenerated, but a revision still needs verification before durable admission.",
+    "interpret": "Bad-output acceptance rate divides by all bad outputs. Accepted-output defect rate divides by accepted outputs. Good-output rejection divides by good outputs. Coverage is the share accepted automatically. A reject-all gate has zero bad acceptance but also zero useful automatic throughput.\n\nFaithfulness and coverage are different: a short summary can make no false statements while omitting the backup requirement that makes a migration permissible. Do not combine a serious support failure with a high style score and average it away.\n\nThe live summary is stored as an experiment artifact, not promoted into an agent’s trusted memory. Measure the generator, gate, and regeneration together; cheap verification can make an already-cheap extractor slower and more expensive.\n\nProtocol v3 uses GPT-6 Luna with reasoning disabled for the short OpenAI tasks; the separate reader comparison keeps medium effort. Reranking readers receive source IDs and text only. Summary thresholds are frozen before test calls, shared costs remain separate, and ledger writes are excluded from decision latency. Synthetic labels and lexical checks do not establish production accuracy.",
+    "exercises": [
+      "Add a truthful but incomplete summary. Which signal should fail?",
+      "Plot acceptance and defect rate across thresholds using development rows only.",
+      "Add multilingual negation and a third-party claim attributed incorrectly to the user.",
+      "Use a stronger generator and determine whether a verifier still earns its extra cost."
+    ],
+    "walkthrough": "Give the verifier the original source and the proposed summary together. Ask separately whether the claims are supported, the subject/date/negation is preserved, and action-critical conditions are retained. Python takes the minimum Jev signal and compares it with a threshold chosen on four development examples. Only the later test examples contribute to the quality charts. A rejection requests review or revision; it does not prove that a replacement summary is correct.",
+    "scope": "The scored test uses authored good and defective summaries so all verifiers see identical inputs. A separate OpenAI-generated summary demonstrates the workflow and is excluded from labeled accuracy.",
+    "diagrams": [
+      {
+        "title": "Use case · catch a missing condition",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Original source",
+            "detail": "Approval AND tested backup",
+            "icon": "document"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Proposed summary",
+            "detail": "Approval only",
+            "icon": "document"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Check three dimensions",
+            "detail": "Support · attribution · coverage",
+            "icon": "decision"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Python gate",
+            "detail": "Minimum signal ≥ threshold?",
+            "icon": "code"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Reject this omission",
+            "detail": "Request revision or review",
+            "icon": "review"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Review the new text",
+            "detail": "No automatic gold label",
+            "icon": "review"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "extraction"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "source + summary"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "three signals"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "missing condition"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "new candidate"
+          }
+        ],
+        "note": "Coverage catches an omission that a support-only checker can miss."
+      },
+      {
+        "title": "Baseline · accept every extracted summary",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Source retained",
+            "detail": "Oracle source + provenance",
+            "icon": "database"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Candidate summary",
+            "detail": "Authored test / live OpenAI",
+            "icon": "model"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "No gate",
+            "detail": "Always accept",
+            "icon": "code"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Accept decision",
+            "detail": "Recorded as a test outcome",
+            "icon": "code"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Oracle run ledger",
+            "detail": "Source, summary and decision",
+            "icon": "database"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Compare with labels",
+            "detail": "Test rows only",
+            "icon": "review"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "source"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "candidate"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "accept all"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "artifact"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "human-authored labels"
+          }
+        ],
+        "note": "The lab records outcomes; it never installs these examples into a production agent’s trusted memory."
+      },
+      {
+        "title": "With Jev · verify before an admission decision",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Source + summary",
+            "detail": "Read the pair together",
+            "icon": "document"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Jev Noul questions",
+            "detail": "Support · attribution · coverage",
+            "icon": "decision"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Python threshold",
+            "detail": "Frozen on development data",
+            "icon": "code"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Accept or revise",
+            "detail": "Three checks must pass",
+            "icon": "review"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Oracle run ledger",
+            "detail": "Save signals and decision",
+            "icon": "database"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Inspect trade-offs",
+            "detail": "Bad accepts vs good rejects",
+            "icon": "review"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "evidence"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "three probabilities"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "policy decision"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "outcome + source"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "held-out labels"
+          }
+        ],
+        "note": "Voyage embeds archived source rows for the database lesson; the verifier reads the complete supplied source, with no retrieval step. This archive cost is separate from gate cost."
+      }
+    ],
+    "notebook": "02_summary_quality_gate.ipynb",
+    "default_cases": 10,
+    "min_cases": 6,
+    "case_dataset": "summary_cases"
+  },
+  "routing": {
+    "lab": "routing",
+    "title": "Memory-use routing: when to search and when to inject",
+    "data": [
+      "DOCUMENTS",
+      "ROUTING_CASES"
+    ],
+    "goal": "Control whether an agent searches stored memory and whether retrieved evidence enters the next model request.",
+    "story": "“What is 17 × 24?” can be answered without stored memory. “What coffee should I get Mina after lunch?” needs her saved preference for decaf after noon. A router decides whether to search memory or include retrieved memories before the answer model responds.",
+    "question": "Can a routing policy reduce unnecessary memory work without missing cases where memory changes the answer?",
+    "method": "A **pre-retrieval gate** sees the request and a small description of available memory, but not the candidate evidence. It can save embedding, SQL and reranking work. A **post-retrieval gate** sees actual retrieved memories; it can prevent irrelevant injection but has already paid retrieval cost.\n\nWe execute four real paths: always use memory, never use memory, Jev before retrieval, and Jev after retrieval. Every path uses the same OpenAI reader configuration. Repeated answering calls can differ, so larger studies should repeat queries and use paired analysis. The expected-use labels are authored expectations, not proof that memory causally improves the answer.\n\nAn explicit `disabled` flag is application policy and overrides every arm, including “always.” We do not delegate the user’s memory-off control to a classifier. The 0.5 threshold is an illustrative starting value to tune on separate data.",
+    "interpret": "`route_correct` measures agreement with teaching labels. `answer_check` is only lexical. Inspect paired answers to learn whether a routing miss actually harmed the task. A lower retrieval rate is not an improvement if it discards the memory needed for a correct answer.\n\nPre-retrieval decisions have an information disadvantage: they cannot see what they decide not to fetch. Test innocuous-looking personalization questions, corrections, and questions already fully answered in recent context. Measure router delay too; adding a decision call before a very cheap search can make a request slower.\n\nProtocol v3 uses GPT-6 Luna with reasoning disabled for the short OpenAI tasks; the separate reader comparison keeps medium effort. Reranking readers receive source IDs and text only. Summary thresholds are frozen before test calls, shared costs remain separate, and ledger writes are excluded from decision latency. Synthetic labels and lexical checks do not establish production accuracy.",
+    "exercises": [
+      "Add a generic-looking question whose answer depends on a stored preference.",
+      "Set disabled=True on a memory-dependent case and verify that no memory search occurs.",
+      "Compare actual per-case answer quality with the expected-use label.",
+      "Add a recent-context field and see whether it reduces unnecessary historical searches."
+    ],
+    "walkthrough": "Before-search routing sees the request and a description of what the memory store contains. A “no” can avoid the query embedding and Oracle search. After-search routing sees the actual candidates and can reject irrelevant context, but the retrieval cost has already been paid. These are separate strategies in this experiment. An explicit memory-off flag is handled by Python before either strategy; it is not a model judgment.",
+    "scope": "“Correct routing” means agreement with authored use-memory labels. You must also inspect the resulting answer: selecting the expected route does not establish that memory improved it.",
+    "diagrams": [
+      {
+        "title": "Use case · should this request search memory?",
+        "nodes": [
+          {
+            "id": "q",
+            "x": 0,
+            "y": 0,
+            "title": "Request + user policy",
+            "detail": "Memory disabled? Skip search.",
+            "icon": "user"
+          },
+          {
+            "id": "gate",
+            "x": 1,
+            "y": 0,
+            "title": "Jev before search",
+            "detail": "Would stored memory help?",
+            "icon": "decision"
+          },
+          {
+            "id": "search",
+            "x": 2,
+            "y": 0,
+            "title": "Voyage + Oracle",
+            "detail": "Fetch memories for Mina",
+            "icon": "database"
+          },
+          {
+            "id": "direct",
+            "x": 1,
+            "y": 1,
+            "title": "No memory context",
+            "detail": "Arithmetic / memory off",
+            "icon": "code"
+          },
+          {
+            "id": "answer",
+            "x": 2,
+            "y": 1,
+            "title": "Same OpenAI reader",
+            "detail": "Answer with chosen context",
+            "icon": "model"
+          }
+        ],
+        "edges": [
+          {
+            "source": "q",
+            "target": "gate",
+            "label": "memory allowed"
+          },
+          {
+            "source": "gate",
+            "target": "search",
+            "label": "yes: coffee"
+          },
+          {
+            "source": "gate",
+            "target": "direct",
+            "label": "no: arithmetic"
+          },
+          {
+            "source": "search",
+            "target": "answer",
+            "label": "evidence"
+          },
+          {
+            "source": "direct",
+            "target": "answer",
+            "label": "empty evidence"
+          }
+        ],
+        "note": "Memory-off requests bypass the decision model as well as search. Stored preference: Mina drinks decaf after noon."
+      },
+      {
+        "title": "Baseline · always search, except explicit memory-off",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Request",
+            "detail": "Apply user memory-off flag",
+            "icon": "user"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Voyage query vector",
+            "detail": "Paid only if search is allowed",
+            "icon": "vector"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Oracle AI Database",
+            "detail": "Retrieve top three memories",
+            "icon": "database"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Always inject",
+            "detail": "No relevance gate",
+            "icon": "code"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "OpenAI answer",
+            "detail": "Evidence enters its context",
+            "icon": "model"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Oracle measurements",
+            "detail": "Route, answer, time and cost",
+            "icon": "database"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "allowed request"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "query vector"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "three memories"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "context + question"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "observed outcome"
+          }
+        ],
+        "note": "The never-memory arm supplies no stored evidence and serves as another baseline."
+      },
+      {
+        "title": "Alternative · Jev after search",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Request",
+            "detail": "Apply explicit user policy",
+            "icon": "user"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Voyage + Oracle",
+            "detail": "Retrieve three memories first",
+            "icon": "database"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Jev with candidates",
+            "detail": "Would these help this answer?",
+            "icon": "decision"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Python injection gate",
+            "detail": "Yes: include · no: empty",
+            "icon": "code"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Same OpenAI reader",
+            "detail": "Answer from selected context",
+            "icon": "model"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Compare full query cost",
+            "detail": "Router + search + reader",
+            "icon": "review"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "allowed query"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "actual evidence"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "use-memory judgment"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "chosen context"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "answer + measurements"
+          }
+        ],
+        "note": "A post-search “no” saves context tokens, not the already-completed embedding or database search. The lab does not chain both Jev gates."
+      }
+    ],
+    "notebook": "03_memory_use_routing.ipynb",
+    "default_cases": 8,
+    "min_cases": 1,
+    "case_dataset": "routing_cases"
+  },
+  "selection": {
+    "lab": "selection",
+    "title": "Choosing tools and skills: retrieval versus applicability",
+    "data": [
+      "CATALOG",
+      "SELECTION_CASES"
+    ],
+    "goal": "Retrieve eligible capabilities from Oracle and decide which actually applies to the user’s request.",
+    "story": "A developer asks: “Explain what a database migration is. Do not execute tools.” Vector search may return run_migration because its description is related. The correct selection is none: a request for an explanation does not satisfy that tool’s execution preconditions.",
+    "question": "Does Jev improve applicable-item selection and abstention beyond embedding similarity alone?",
+    "method": "Toolbox entries describe callable operations; skillbox entries describe reusable procedures with preconditions. This lesson stores both catalogs as ordinary SQL rows with Voyage embeddings. It does not import Memorizz or an agent framework.\n\nCompare embedding top-1, an embedding top-3 shortlist followed by Jev, and Jev over the complete eligible catalog. The third approach is plausible only for small catalogs that fit request limits. For a large collection, indexed retrieval remains the first stage.\n\nUnavailable tools and unapproved shadow skills are filtered in Python before either embeddings or Jev can select them. Jev always has a `none` choice. This fixture has at most one correct item per request; real tasks needing several tools require a multi-selection protocol and appropriate labels. The lesson tests selection, not execution authority.",
+    "interpret": "Report tools and skills separately. False skill activation can inject inappropriate instructions, while missing one useful tool has a different failure cost. Exact-set accuracy includes correct abstention; precision and recall are undefined in their empty-denominator cases.\n\nThe embedding baseline deliberately shows raw top-1 selection. Add an embedding-distance threshold as a stronger baseline, tuned on separate data. Do not claim Jev beats every semantic selector by beating an always-select rule. A production comparison should also execute safe test tasks and measure final success.\n\nProtocol v3 uses GPT-6 Luna with reasoning disabled for the short OpenAI tasks; the separate reader comparison keeps medium effort. Reranking readers receive source IDs and text only. Summary thresholds are frozen before test calls, shared costs remain separate, and ledger writes are excluded from decision latency. Synthetic labels and lexical checks do not establish production accuracy.",
+    "exercises": [
+      "Add two similarly worded tools with different side effects.",
+      "Create a skill whose precondition is absent despite high textual similarity.",
+      "Add a calibrated embedding threshold and compare correct abstention.",
+      "Scale to 100 eligible entries, recording candidate recall and request size."
+    ],
+    "walkthrough": "Filter unavailable tools and unapproved skills in Python first. Compare three selectors: always take the nearest embedding match; let Jev choose among Oracle’s top three plus none; or let Jev inspect the entire small eligible catalog plus none. A tool is a callable operation, while a skill is reusable guidance. Selecting either is evaluated here; no tool is executed.",
+    "scope": "Raw embedding top-1 has no abstention rule, so it is intentionally a weak baseline on no-match requests. Add a separately tuned distance threshold before claiming superiority over semantic selection in general.",
+    "diagrams": [
+      {
+        "title": "Use case · related does not mean applicable",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Developer request",
+            "detail": "Explain a migration; do not run",
+            "icon": "user"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Eligible tool catalog",
+            "detail": "run_migration is available",
+            "icon": "document"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Semantic match",
+            "detail": "Migration words are similar",
+            "icon": "search"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Jev applicability",
+            "detail": "Do preconditions hold?",
+            "icon": "decision"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Choose none",
+            "detail": "Explanation needs no tool",
+            "icon": "code"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Record selection",
+            "detail": "No execution or permission",
+            "icon": "database"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "request"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "candidate descriptions"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "related options"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "typed choice"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "selected IDs"
+          }
+        ],
+        "note": "For skills, Meadow and Harbor connection procedures also sound similar but apply to different projects."
+      },
+      {
+        "title": "Baseline · take the nearest eligible item",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Eligible catalog",
+            "detail": "Python availability filter",
+            "icon": "code"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Voyage embeddings",
+            "detail": "Document vectors in Oracle",
+            "icon": "vector"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Oracle search",
+            "detail": "Query vector → top three",
+            "icon": "database"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Embedding top-1",
+            "detail": "Always pick closest item",
+            "icon": "search"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Selected tool / skill",
+            "detail": "Stable catalog identifier",
+            "icon": "code"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Score the selection",
+            "detail": "Exact match / false activation",
+            "icon": "review"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "descriptions"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "stored vectors"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "similarity order"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "first ID"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "authored labels"
+          }
+        ],
+        "note": "Tool and skill catalogs are searched separately; switch the results filter to inspect each type."
+      },
+      {
+        "title": "With Jev · shortlist then select or abstain",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Same eligible catalog",
+            "detail": "Availability remains code",
+            "icon": "code"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Same Voyage + Oracle",
+            "detail": "Same three candidates",
+            "icon": "database"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Jev Choice",
+            "detail": "Candidates plus none",
+            "icon": "decision"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Python validates ID",
+            "detail": "No unavailable capabilities",
+            "icon": "code"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Selection artifact",
+            "detail": "No tool calls are executed",
+            "icon": "database"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Compare exact matches",
+            "detail": "Include no-match requests",
+            "icon": "review"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "request"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "shortlist"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "selected ID / none"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "selection"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "expected set"
+          }
+        ],
+        "note": "Full-catalog Jev is a separate arm that skips retrieval as a selection strategy. Its selector-only cost excludes the shared search performed for the two other arms."
+      }
+    ],
+    "notebook": "04_toolbox_skillbox_selection.ipynb",
+    "default_cases": 8,
+    "min_cases": 1,
+    "case_dataset": "selection_cases"
+  },
+  "chunking": {
+    "lab": "chunking",
+    "title": "Semantic chunking: preserve meaning and measure retrieval",
+    "data": [
+      "CHUNK_DOCUMENTS",
+      "CHUNK_QUERIES"
+    ],
+    "goal": "Choose source-preserving chunk boundaries and measure which source evidence Oracle retrieves afterward.",
+    "story": "A document says “Production migrations need explicit approval. They also need a tested backup.” Splitting between those sentences can make search return only the approval requirement. Chunking should preserve the connection so the answer model sees both conditions.",
+    "question": "Do Jev-assisted boundaries improve evidence recall and precision under a fixed context budget?",
+    "method": "We compare fixed word windows, sentence-aware packing, embedding-change boundaries, and Jev new-topic judgments. All methods preserve every source character. Jev inspects the sentence sequence rather than classifying isolated fragments. Code applies a target size and maximum size to assemble chunks.\n\nChunk IDs differ between methods, so labels refer to exact spans in original documents. We score unique source **word positions**, an intentionally simple approximation of token-span evaluation. This is not a tokenizer-token metric. A fixed 70-word retrieval budget makes context volume comparable; larger chunks do not receive an automatic top-k advantage.\n\nThe embedding boundary threshold and the 0.5 Jev threshold are teaching settings. Tune them on development documents. Sentence splitting here is a small punctuation-based baseline, not a universal multilingual parser. The size policy may split a semantic unit. A single sentence over the maximum is rejected until explicitly split with preserved offsets.",
+    "interpret": "A chunker can improve boundary aesthetics without improving retrieval. Source-word precision measures how much retrieved content belongs to the gold span; recall measures how much of that span was recovered. Intersection over union balances missing and extraneous evidence. Duplicate overlap does not inflate the score because positions are deduplicated.\n\nIngestion cost is paid once per chunking method and includes its decision/embedding work. Its total is repeated in per-query rows for convenient inspection—never sum that repeated column. Use the call ledger for total spend. Amortize ingestion over the number of future queries when comparing a production workload.\n\nThe labeled excerpts are not exhaustive human judgments of every useful alternative passage. Treat the figures as controlled teaching diagnostics. Each method also passes its budgeted evidence to the same OpenAI reader. Inspect the returned answers separately: the span metrics do not establish factual answer correctness.\n\nProtocol v3 uses GPT-6 Luna with reasoning disabled for the short OpenAI tasks; the separate reader comparison keeps medium effort. Reranking readers receive source IDs and text only. Summary thresholds are frozen before test calls, shared costs remain separate, and ledger writes are excluded from decision latency. Synthetic labels and lexical checks do not establish production accuracy.",
+    "exercises": [
+      "Add a pronoun whose referent appears before a proposed boundary.",
+      "Compare 35, 70 and 140-word context budgets while keeping source-span labels fixed.",
+      "Try overlapping fixed windows and verify that duplicate source positions do not inflate recall.",
+      "Measure ingestion cost amortized over 10 versus 10,000 queries."
+    ],
+    "walkthrough": "Keep exact character offsets into the original document. Compare fixed 35-word windows, sentence packing, adjacent-sentence embedding changes, and Jev topic-boundary judgments. Code enforces a 70-word maximum chunk size; every source character must survive. Then embed each method’s chunks with voyage-4 and search them in Oracle for the same questions.",
+    "scope": "Retrieve at most 70 words per question and score unique source-word positions against a labeled excerpt. This tests downstream evidence retrieval, not whether a boundary looks elegant or whether the final answer is correct.",
+    "diagrams": [
+      {
+        "title": "Use case · keep a condition and its referent together",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Original source",
+            "detail": "Approval. They also need backup.",
+            "icon": "document"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Sentence spans",
+            "detail": "Exact start/end offsets",
+            "icon": "code"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Boundary judgment",
+            "detail": "Same requirement or new topic?",
+            "icon": "decision"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Python packing",
+            "detail": "35-word target · max 70",
+            "icon": "code"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Retrieve evidence",
+            "detail": "70-word context budget",
+            "icon": "search"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Check source coverage",
+            "detail": "Did both conditions survive?",
+            "icon": "review"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "unchanged text"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "neighboring sentences"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "boundary signal"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "chunks"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "unique source words"
+          }
+        ],
+        "note": "The size limit can override a semantic boundary. An overlong sentence is rejected until explicitly split."
+      },
+      {
+        "title": "Baseline · fixed windows",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Same source text",
+            "detail": "Keep all characters",
+            "icon": "document"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Python fixed windows",
+            "detail": "35 words, no overlap",
+            "icon": "code"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Voyage document vectors",
+            "detail": "voyage-4 · 1024 dimensions",
+            "icon": "vector"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Oracle cosine search",
+            "detail": "Same query embeddings",
+            "icon": "database"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Pack retrieved evidence",
+            "detail": "Whole chunks, ≤70 words",
+            "icon": "code"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "OpenAI reader + metrics",
+            "detail": "Source-span labels",
+            "icon": "model"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "source offsets"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "chunk text"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "text + vectors"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "ranked chunks"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "budgeted evidence"
+          }
+        ],
+        "note": "Each method has its own Oracle collection. Indexing cost is paid once per method and must not be summed once per query."
+      },
+      {
+        "title": "With Jev · change only boundary selection",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Same source + offsets",
+            "detail": "Sentence sequence in context",
+            "icon": "document"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Jev boundary questions",
+            "detail": "One Noul per adjacent pair",
+            "icon": "decision"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Python packing policy",
+            "detail": "Same target and hard maximum",
+            "icon": "code"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Voyage + Oracle",
+            "detail": "Embed new chunks, then search",
+            "icon": "database"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Same 70-word budget",
+            "detail": "Deduplicate source positions",
+            "icon": "code"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Same reader + labels",
+            "detail": "Inspect answers separately",
+            "icon": "review"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "sentences"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "boundary probabilities"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "source-preserving chunks"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "ranked candidates"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "budgeted evidence"
+          }
+        ],
+        "note": "These three short bilingual documents are a teaching set, not evidence of state-of-the-art multilingual chunking."
+      }
+    ],
+    "notebook": "05_semantic_chunking.ipynb",
+    "default_cases": 6,
+    "min_cases": 1,
+    "case_dataset": "chunk_queries"
+  },
+  "readers": {
+    "lab": "readers",
+    "title": "Opus 5.5, GPT-6 Sol and Luna: reading agent memory",
+    "data": [
+      "DOCUMENTS",
+      "QUESTIONS"
+    ],
+    "goal": "Compare named reader models while keeping Oracle evidence and the memory protocol fixed.",
+    "story": "One memory says Mina lived in Bristol. A later correction says she moved to Bath. We give Opus 5.5, GPT-6 Sol and GPT-6 Luna the same retrieved memories and ask where she lives now. This separates the reader’s handling of corrections from differences in retrieval.",
+    "question": "How do the selected, actually available models differ on memory-grounded answers, latency and cost?",
+    "method": "Compare **Claude Opus 5.5**, **GPT-6 Sol**, and **GPT-6 Luna**, using account-verified API IDs. Discover models before inference; an unavailable ID produces a clear stop. This is the user-selected three-model comparison as of September 25, 2026.\n\nAll three readers receive the same five Oracle candidates, source text, instructions and a 4,096-token output budget. Requests use the medium effort label and are interleaved by question. Effort labels and tokenizers differ across providers: equal labels are not equal reasoning compute. We record their exact requested and resolved model IDs, provider-reported input/output usage, and visible answers. Thinking-output usage is part of the returned output token count and therefore part of cost. No Anthropic cache breakpoints are enabled. OpenAI cache reads and writes are recorded and priced separately when reported. All contexts are below the long-context pricing threshold.\n\nThis tests diagnostic memory QA. It does not claim to benchmark autonomous tool use, continually learned skills, or unlimited long-horizon agent behavior. Add oracle evidence, memory-off conditions and longer conversations as separately labeled conditions.",
+    "interpret": "Model availability is an experimental precondition. An unavailable model produces a clear stop, never a fabricated result or an unlabeled substitute. Defaults use the verified Opus 5.5, GPT-6 Sol and GPT-6 Luna IDs; discovery catches later availability changes.\n\nKeyword checks are not a judge of factual correctness. Review attribution, dates, evidence sufficiency and citations. Record a human-supported correctness label before calculating cost per successful answer. Larger comparisons should repeat stochastic calls, interleave model order and report paired differences on independent conversations.\n\nProtocol v3 uses GPT-6 Luna with reasoning disabled for the short OpenAI tasks; the separate reader comparison keeps medium effort. Reranking readers receive source IDs and text only. Summary thresholds are frozen before test calls, shared costs remain separate, and ledger writes are excluded from decision latency. Synthetic labels and lexical checks do not establish production accuracy.",
+    "exercises": [
+      "Compare retrieved evidence with manually selected gold evidence.",
+      "Add a correction late in a long conversation and probe whether the reader follows it.",
+      "Measure correctness with and without memory instead of assuming a larger model needs no retrieval.",
+      "Test actual MemAgent runs separately after this diagnostic comparison."
+    ],
+    "walkthrough": "Embed the question once, retrieve five Oracle rows once, and freeze their text and IDs for every reader. Interleave model order across questions. Collect each visible answer, provider token usage, latency and list-price cost. The keyword check looks for “Bath”; an answer saying “not Bath” can still pass, so read the answer and its citations before assigning factual correctness.",
+    "scope": "This is a memory-reading diagnostic, not a complete autonomous-agent benchmark. Jev is not a generative replacement for these reader models; the preceding lessons test where its decisions can assist them. The dataset provides 40 authored questions over the same 30 memories. The default run uses the first six. These related questions are not 40 independent conversations; saved notebook outputs retain their original six-question runs.",
+    "diagrams": [
+      {
+        "title": "Use case · a later fact replaces an earlier one",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Question",
+            "detail": "Where does Mina live now?",
+            "icon": "user"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Earlier memory",
+            "detail": "m01: lived in Bristol",
+            "icon": "document"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Later correction",
+            "detail": "m02: moved to Bath",
+            "icon": "document"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Reader sees same evidence",
+            "detail": "Three separate model calls",
+            "icon": "model"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Inspect the answer",
+            "detail": "Current home + correct source",
+            "icon": "review"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Compare measurements",
+            "detail": "Quality review, latency, cost",
+            "icon": "database"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "relevant history"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "new information"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "five frozen rows"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "visible answer"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "supported judgment"
+          }
+        ],
+        "note": "The lexical diagnostic is not a human factual-correctness label."
+      },
+      {
+        "title": "Reference architecture · one evidence pool, three readers",
+        "nodes": [
+          {
+            "id": "0",
+            "x": 0,
+            "y": 0,
+            "title": "Same memory question",
+            "detail": "Identical request text",
+            "icon": "user"
+          },
+          {
+            "id": "1",
+            "x": 1,
+            "y": 0,
+            "title": "Voyage query embedding",
+            "detail": "voyage-4",
+            "icon": "vector"
+          },
+          {
+            "id": "2",
+            "x": 2,
+            "y": 0,
+            "title": "Oracle AI Database",
+            "detail": "Freeze top-five text + IDs",
+            "icon": "database"
+          },
+          {
+            "id": "3",
+            "x": 2,
+            "y": 1,
+            "title": "Same prompt + output cap",
+            "detail": "4096 tokens · medium effort",
+            "icon": "code"
+          },
+          {
+            "id": "4",
+            "x": 1,
+            "y": 1,
+            "title": "Reader comparison",
+            "detail": "Opus 5.5 / GPT-6 Sol / Luna",
+            "icon": "model"
+          },
+          {
+            "id": "5",
+            "x": 0,
+            "y": 1,
+            "title": "Oracle run ledger",
+            "detail": "Answers, token usage, cost",
+            "icon": "database"
+          }
+        ],
+        "edges": [
+          {
+            "source": "0",
+            "target": "1",
+            "label": "question"
+          },
+          {
+            "source": "1",
+            "target": "2",
+            "label": "1024-D vector"
+          },
+          {
+            "source": "2",
+            "target": "3",
+            "label": "frozen evidence"
+          },
+          {
+            "source": "3",
+            "target": "4",
+            "label": "provider request"
+          },
+          {
+            "source": "4",
+            "target": "5",
+            "label": "measured response"
+          }
+        ],
+        "note": "Prompt and output cap are applied to each reader call. Equal effort labels do not mean equal compute across providers. Evidence, prompts and request usage are inspectable."
+      }
+    ],
+    "notebook": "06_memory_reader_comparison.ipynb",
+    "default_cases": 6,
+    "min_cases": 1,
+    "case_dataset": "questions"
+  }
+}

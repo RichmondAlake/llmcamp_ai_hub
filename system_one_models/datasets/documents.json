@@ -1,0 +1,182 @@
+[
+  [
+    "m01",
+    "2026-08-01",
+    "Mina",
+    "Mina lives in Bristol. She previously lived in Leeds."
+  ],
+  [
+    "m02",
+    "2026-09-10",
+    "Mina",
+    "Mina moved from Bristol to Bath on 10 September. Bath is her current home."
+  ],
+  [
+    "m03",
+    "2026-09-12",
+    "Leo",
+    "Leo lives in Bristol and visits Bath for work."
+  ],
+  [
+    "m04",
+    "2026-09-03",
+    "Mina",
+    "Mina normally prefers detailed explanations with examples."
+  ],
+  [
+    "m05",
+    "2026-09-14",
+    "Mina",
+    "For this status update only, Mina requested a two-sentence answer."
+  ],
+  [
+    "m06",
+    "2026-09-04",
+    "Meadow",
+    "Meadow staging uses port 5434. Meadow production uses port 5432."
+  ],
+  [
+    "m07",
+    "2026-09-05",
+    "Meadow",
+    "An attempted Meadow staging fix changed the port to 5432. This failed; that is the production port."
+  ],
+  [
+    "m08",
+    "2026-09-06",
+    "Meadow",
+    "The successful Meadow staging fix restored port 5434 and refreshed the expired test credential."
+  ],
+  [
+    "m09",
+    "2026-09-06",
+    "Harbor",
+    "Harbor staging uses port 5432 and its test credentials are valid."
+  ],
+  [
+    "m10",
+    "2026-09-07",
+    "Meadow",
+    "The Meadow release was scheduled for Thursday at 14:00 UTC."
+  ],
+  [
+    "m11",
+    "2026-09-11",
+    "Meadow",
+    "The Meadow release moved to Friday at 15:00 UTC. This replaces the Thursday schedule."
+  ],
+  [
+    "m12",
+    "2026-09-12",
+    "Harbor",
+    "Harbor releases on Thursday at 14:00 UTC."
+  ],
+  [
+    "m13",
+    "2026-09-02",
+    "Mina",
+    "Mina avoids peanuts because of an allergy; this is not a dislike."
+  ],
+  [
+    "m14",
+    "2026-09-03",
+    "Leo",
+    "Leo dislikes peanuts but has no food allergy."
+  ],
+  [
+    "m15",
+    "2026-09-09",
+    "Mina",
+    "Mina drinks decaffeinated coffee after noon. She drinks regular coffee in the morning."
+  ],
+  [
+    "m16",
+    "2026-09-09",
+    "Leo",
+    "Leo drinks regular coffee at any time of day."
+  ],
+  [
+    "m17",
+    "2026-09-08",
+    "Meadow",
+    "Meadow exports must remove customer email addresses before sharing."
+  ],
+  [
+    "m18",
+    "2026-09-13",
+    "Meadow",
+    "Meadow exports must retain transaction IDs so support can investigate failures."
+  ],
+  [
+    "m19",
+    "2026-09-01",
+    "Harbor",
+    "Harbor public exports remove both emails and transaction IDs."
+  ],
+  [
+    "m20",
+    "2026-09-06",
+    "Meadow",
+    "A Meadow retry loop applied a clock offset twice. Disabling all retries hid the error but broke recovery."
+  ],
+  [
+    "m21",
+    "2026-09-07",
+    "Meadow",
+    "The verified clock fix applies the offset once at ingestion and preserves the retry loop."
+  ],
+  [
+    "m22",
+    "2026-09-15",
+    "Meadow",
+    "Nora owns the Meadow release approval. Leo only prepares the checklist."
+  ],
+  [
+    "m23",
+    "2026-09-15",
+    "Harbor",
+    "Leo approves Harbor releases; Nora is not on that team."
+  ],
+  [
+    "m24",
+    "2026-09-10",
+    "Mina",
+    "Mina will visit the London office next Tuesday. Her normal workplace is remote."
+  ],
+  [
+    "m25",
+    "2026-09-14",
+    "Meadow",
+    "Never run a production migration without explicit approval and a tested backup."
+  ],
+  [
+    "m26",
+    "2026-09-14",
+    "Meadow",
+    "Read-only schema inspection is permitted without migration approval."
+  ],
+  [
+    "m27",
+    "2026-09-16",
+    "Mina",
+    "Mina calls the Meadow demo branch fern. The branch is not the production release."
+  ],
+  [
+    "m28",
+    "2026-09-16",
+    "Harbor",
+    "Harbor production is on the fern branch."
+  ],
+  [
+    "m29",
+    "2026-09-12",
+    "Meadow",
+    "The acceptance test is named meadow_clock_once and checks that replay preserves timestamps."
+  ],
+  [
+    "m30",
+    "2026-09-13",
+    "Meadow",
+    "A UI-only color change does not exercise the clock acceptance test."
+  ]
+]

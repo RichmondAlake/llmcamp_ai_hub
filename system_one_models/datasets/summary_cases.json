@@ -1,0 +1,82 @@
+[
+  [
+    "s01",
+    "dev",
+    "Mina normally works remotely. She visits London next Tuesday.",
+    "Mina works remotely and will visit London next Tuesday.",
+    true,
+    "faithful"
+  ],
+  [
+    "s02",
+    "dev",
+    "Mina normally works remotely. She visits London next Tuesday.",
+    "Mina works in London.",
+    false,
+    "temporary_as_permanent"
+  ],
+  [
+    "s03",
+    "dev",
+    "The release moved from Thursday to Friday at 15:00 UTC.",
+    "The release is on Thursday at 15:00 UTC.",
+    false,
+    "superseded_date"
+  ],
+  [
+    "s04",
+    "dev",
+    "The release moved from Thursday to Friday at 15:00 UTC.",
+    "The release is now Friday at 15:00 UTC.",
+    true,
+    "faithful"
+  ],
+  [
+    "s05",
+    "test",
+    "Leo suggested disabling retries. Mina rejected that. Applying the offset once fixed the bug.",
+    "Disabling retries fixed the bug.",
+    false,
+    "failed_as_successful"
+  ],
+  [
+    "s06",
+    "test",
+    "Leo suggested disabling retries. Mina rejected that. Applying the offset once fixed the bug.",
+    "The offset-once change fixed the bug; disabling retries was rejected.",
+    true,
+    "faithful"
+  ],
+  [
+    "s07",
+    "test",
+    "Mina has a peanut allergy. Leo merely dislikes peanuts.",
+    "Leo has a peanut allergy.",
+    false,
+    "wrong_subject"
+  ],
+  [
+    "s08",
+    "test",
+    "Mina has a peanut allergy. Leo merely dislikes peanuts.",
+    "Mina is allergic to peanuts; Leo dislikes them.",
+    true,
+    "faithful"
+  ],
+  [
+    "s09",
+    "test",
+    "Production migrations need approval AND a tested backup.",
+    "Production migrations need approval.",
+    false,
+    "required_condition_missing"
+  ],
+  [
+    "s10",
+    "test",
+    "Production migrations need approval AND a tested backup.",
+    "Get approval and a tested backup before a production migration.",
+    true,
+    "faithful"
+  ]
+]

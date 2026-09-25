@@ -1,0 +1,75 @@
+[
+  [
+    "r01",
+    "What is 17 multiplied by 24?",
+    false,
+    false,
+    [
+      "408"
+    ]
+  ],
+  [
+    "r02",
+    "Where does Mina live now?",
+    true,
+    false,
+    [
+      "Bath"
+    ]
+  ],
+  [
+    "r03",
+    "What fixed our Meadow staging connection?",
+    true,
+    false,
+    [
+      "5434",
+      "credential"
+    ]
+  ],
+  [
+    "r04",
+    "Explain the word concise in one sentence.",
+    false,
+    false,
+    [
+      "brief"
+    ]
+  ],
+  [
+    "r05",
+    "Who is responsible for approving the Meadow release?",
+    true,
+    false,
+    [
+      "Nora"
+    ]
+  ],
+  [
+    "r06",
+    "What coffee should I get Mina after lunch?",
+    true,
+    false,
+    [
+      "decaffeinated"
+    ]
+  ],
+  [
+    "r07",
+    "Without using stored memory, what is 10 plus 6?",
+    false,
+    true,
+    [
+      "16"
+    ]
+  ],
+  [
+    "r08",
+    "What is the capital of France?",
+    false,
+    false,
+    [
+      "Paris"
+    ]
+  ]
+]

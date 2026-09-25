@@ -1,0 +1,14 @@
+[
+  [
+    "c01",
+    "The Meadow release was initially Thursday. Nora changed it to Friday at 15:00 UTC. This replaces Thursday. Mina normally wants detailed answers. For the standup only, she requested two sentences. The staging connection failed. Port 5432 was an unsuccessful attempt. Restoring port 5434 and refreshing the test credential fixed it."
+  ],
+  [
+    "c02",
+    "Production migrations need explicit approval. They also need a tested backup. Read-only schema inspection does not need migration approval. Customer exports remove email addresses. Transaction IDs must remain for support. Mina works remotely. A visit to London next Tuesday does not change her normal workplace."
+  ],
+  [
+    "c03",
+    "El proyecto Meadow usa el puerto 5434 en staging. El puerto 5432 pertenece a production. Cambiar staging a 5432 no funcionó. The verified fix refreshed the test credential. Les dates ont changé: vendredi à 15:00 UTC remplace jeudi. Nora approves the release. Leo prepares the checklist but cannot approve it."
+  ]
+]

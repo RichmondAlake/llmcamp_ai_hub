@@ -1,0 +1,13 @@
+oracledb>=4.0,<5
+langchain-oracledb==1.5.0
+requests>=2.32,<3
+python-dotenv>=1,<2
+numpy>=1.26,<3
+pandas>=2.2,<4
+matplotlib>=3.9,<4
+nbformat>=5.10,<6
+nbclient>=0.10,<1
+ipykernel>=6.29,<7
+transformers>=5.0,<6
+torch>=2.5,<3
+sentencepiece>=0.2,<1

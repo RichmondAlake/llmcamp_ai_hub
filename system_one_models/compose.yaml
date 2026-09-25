@@ -1,0 +1,21 @@
+services:
+  oracle:
+    image: container-registry.oracle.com/database/free:latest-lite
+    platform: ${ORACLE_PLATFORM:-linux/amd64}
+    container_name: system-one-oracle
+    ports:
+      - "127.0.0.1:1535:1521"
+    environment:
+      ORACLE_PWD: ${ORACLE_ADMIN_PASSWORD:?Set ORACLE_ADMIN_PASSWORD in .env}
+    volumes:
+      - system-one-oracle-data:/opt/oracle/oradata
+    shm_size: 1gb
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'select 1 from dual;' | sqlplus -s / as sysdba | grep -q 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 40
+      start_period: 60s
+
+volumes:
+  system-one-oracle-data:
