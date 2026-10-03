@@ -1,0 +1,16 @@
+anthropic>=0.116,<2
+tavily-python>=0.8.4,<1
+langchain-oracledb==1.5.0
+oracledb>=3.0,<27
+numpy>=1.26,<3
+pandas>=2.2,<4
+sentence-transformers>=5.7,<6
+transformers>=4.57,<5
+requests>=2.32,<3
+python-dotenv>=1.0,<2
+ipython>=9,<10
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
+httpx>=0.27,<1
+pytest>=9,<10
+playwright>=1.60,<2

@@ -1,0 +1,16 @@
+anthropic>=0.116,<2
+tavily-python>=0.8.4,<1
+langchain-oracledb==1.5.0
+oracledb>=3.0,<27
+sentence-transformers>=5.7,<6
+transformers>=4.57,<5
+huggingface_hub>=0.34,<1
+pyarrow>=17,<27
+numpy>=1.26,<3
+pandas>=2.2,<4
+matplotlib>=3.9,<4
+ipywidgets>=8,<9
+python-dotenv>=1.0,<2
+jupyterlab>=4.4,<5
+nbformat>=5.10,<6
+nbclient>=0.10,<1
