@@ -1,0 +1,42 @@
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "d1:1 \u00b7 chunking", "model": "d1.1", "input_tokens": 26712, "output_tokens": 0, "usd": 0.0005342400000000001, "count": 153}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "d1", "name": "boundary F1", "value": 0.4761904761904762, "swap": "1 \u00b7 chunking"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "Jev:1 \u00b7 chunking", "model": "jev", "input_tokens": 66000, "output_tokens": 0, "usd": 0.002772, "count": 153}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "Jev", "name": "boundary F1", "value": 0.3181818181818182, "swap": "1 \u00b7 chunking"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "OpenAI Decisions:1 \u00b7 chunking", "model": "gpt-6-luna", "input_tokens": 46334, "output_tokens": 0, "usd": 0.0046334, "count": 153}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "OpenAI Decisions", "name": "boundary F1", "value": 0.3111111111111111, "swap": "1 \u00b7 chunking"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "d1:2 \u00b7 reranking", "model": "d1.1", "input_tokens": 83070, "output_tokens": 0, "usd": 0.0016614000000000002, "count": 800}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "d1", "name": "nDCG@5", "value": 0.8896331331482671, "swap": "2 \u00b7 reranking"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "Jev:2 \u00b7 reranking", "model": "jev", "input_tokens": 276533, "output_tokens": 0, "usd": 0.011614386, "count": 800}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "Jev", "name": "nDCG@5", "value": 0.902577697168417, "swap": "2 \u00b7 reranking"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "OpenAI Decisions:2 \u00b7 reranking", "model": "gpt-6-luna", "input_tokens": 176146, "output_tokens": 0, "usd": 0.0176146, "count": 800}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "OpenAI Decisions", "name": "nDCG@5", "value": 0.9423134016304078, "swap": "2 \u00b7 reranking"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "d1:3 \u00b7 semantic cache", "model": "d1.1", "input_tokens": 20668, "output_tokens": 0, "usd": 0.00041336000000000004, "count": 144}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "d1", "name": "right decisions", "value": 0.9791666666666666, "swap": "3 \u00b7 semantic cache"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "Jev:3 \u00b7 semantic cache", "model": "jev", "input_tokens": 57262, "output_tokens": 0, "usd": 0.0024050040000000005, "count": 144}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "Jev", "name": "right decisions", "value": 0.9791666666666666, "swap": "3 \u00b7 semantic cache"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "OpenAI Decisions:3 \u00b7 semantic cache", "model": "gpt-6-luna", "input_tokens": 38055, "output_tokens": 0, "usd": 0.0038055, "count": 144}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "OpenAI Decisions", "name": "right decisions", "value": 1.0, "swap": "3 \u00b7 semantic cache"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "d1:4 \u00b7 memory routing", "model": "d1.1", "input_tokens": 15342, "output_tokens": 0, "usd": 0.00030684, "count": 58}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "d1", "name": "right route", "value": 0.6724137931034483, "swap": "4 \u00b7 memory routing"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "Jev:4 \u00b7 memory routing", "model": "jev", "input_tokens": 30441, "output_tokens": 0, "usd": 0.0012785220000000003, "count": 58}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "Jev", "name": "right route", "value": 0.3793103448275862, "swap": "4 \u00b7 memory routing"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "OpenAI Decisions:4 \u00b7 memory routing", "model": "gpt-6-luna", "input_tokens": 37845, "output_tokens": 0, "usd": 0.0037845, "count": 58}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "OpenAI Decisions", "name": "right route", "value": 0.43103448275862066, "swap": "4 \u00b7 memory routing"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "d1:5 \u00b7 consolidation", "model": "d1.1", "input_tokens": 8667, "output_tokens": 0, "usd": 0.00017334, "count": 50}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "d1", "name": "right action", "value": 0.88, "swap": "5 \u00b7 consolidation"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "Jev:5 \u00b7 consolidation", "model": "jev", "input_tokens": 23925, "output_tokens": 0, "usd": 0.00100485, "count": 50}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "Jev", "name": "right action", "value": 0.9, "swap": "5 \u00b7 consolidation"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "OpenAI Decisions:5 \u00b7 consolidation", "model": "gpt-6-luna", "input_tokens": 12610, "output_tokens": 0, "usd": 0.001261, "count": 50}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "OpenAI Decisions", "name": "right action", "value": 0.9, "swap": "5 \u00b7 consolidation"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "d1:6 \u00b7 extraction", "model": "d1.1", "input_tokens": 11671, "output_tokens": 0, "usd": 0.00023342000000000003, "count": 60}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "d1", "name": "gate right", "value": 0.9833333333333333, "swap": "6 \u00b7 extraction"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "Jev:6 \u00b7 extraction", "model": "jev", "input_tokens": 29184, "output_tokens": 0, "usd": 0.0012257280000000001, "count": 60}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "Jev", "name": "gate right", "value": 1.0, "swap": "6 \u00b7 extraction"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "OpenAI Decisions:6 \u00b7 extraction", "model": "gpt-6-luna", "input_tokens": 24351, "output_tokens": 0, "usd": 0.0024351, "count": 60}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "OpenAI Decisions", "name": "gate right", "value": 1.0, "swap": "6 \u00b7 extraction"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "d1:7 \u00b7 tool selection", "model": "d1.1", "input_tokens": 20615, "output_tokens": 0, "usd": 0.0004123, "count": 75}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "d1", "name": "right tool first", "value": 0.96, "swap": "7 \u00b7 tool selection"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "Jev:7 \u00b7 tool selection", "model": "jev", "input_tokens": 44508, "output_tokens": 0, "usd": 0.001869336, "count": 75}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "Jev", "name": "right tool first", "value": 0.96, "swap": "7 \u00b7 tool selection"}
+{"notebook": "09_decision_model_providers", "kind": "cost", "label": "OpenAI Decisions:7 \u00b7 tool selection", "model": "gpt-6-luna", "input_tokens": 27417, "output_tokens": 0, "usd": 0.0027417, "count": 75}
+{"notebook": "09_decision_model_providers", "kind": "metric", "label": "OpenAI Decisions", "name": "right tool first", "value": 0.9733333333333334, "swap": "7 \u00b7 tool selection"}

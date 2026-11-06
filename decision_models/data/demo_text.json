@@ -1,0 +1,56 @@
+{
+  "description": "Eight topics in data/demo_text.md. gold_boundaries holds each topic's starting character offset; the first is offset 0, so there are seven real cuts to find.",
+  "gold_boundaries": [
+    0,
+    1325,
+    2385,
+    3489,
+    4423,
+    5328,
+    6195,
+    7063
+  ],
+  "topics": [
+    {
+      "topic": "project_deadline",
+      "start": 0,
+      "end": 1325
+    },
+    {
+      "topic": "preferred_language",
+      "start": 1325,
+      "end": 2385
+    },
+    {
+      "topic": "tool_outage",
+      "start": 2385,
+      "end": 3489
+    },
+    {
+      "topic": "vegetarian_lunch",
+      "start": 3489,
+      "end": 4423
+    },
+    {
+      "topic": "meeting_reschedule",
+      "start": 4423,
+      "end": 5328
+    },
+    {
+      "topic": "billing_question",
+      "start": 5328,
+      "end": 6195
+    },
+    {
+      "topic": "book_recommendation",
+      "start": 6195,
+      "end": 7063
+    },
+    {
+      "topic": "password_reset",
+      "start": 7063,
+      "end": 8164
+    }
+  ],
+  "fake_card_number": "4111 1111 1111 1111"
+}

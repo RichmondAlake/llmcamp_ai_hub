@@ -1,0 +1,134 @@
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.0517079999990528, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 25, "usd": 4.065e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5613185830006842, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 164, "output_tokens": 7, "usd": 2.88e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5614604580041487, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 163, "output_tokens": 7, "usd": 2.865e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7967463749955641, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 164, "output_tokens": 7, "usd": 2.88e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5615797079954064, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 7, "usd": 2.9849999999999997e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "d1_load", "seconds": 6.670123792006052, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6299087079969468, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 164, "output_tokens": 6, "usd": 2.8199999999999994e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.49387879100686405, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 163, "output_tokens": 7, "usd": 2.865e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.559875999999349, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 164, "output_tokens": 6, "usd": 2.8199999999999994e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5658661250054138, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 7, "usd": 2.9849999999999997e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7889221250079572, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 7, "usd": 2.94e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.4814628750027623, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 7, "usd": 2.94e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6533404999936465, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 166, "output_tokens": 7, "usd": 2.91e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.514744874992175, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 169, "output_tokens": 7, "usd": 2.9549999999999997e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.4607721250067698, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 7, "usd": 2.94e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.45477987499907613, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 6, "usd": 2.88e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7263973329972941, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 169, "output_tokens": 7, "usd": 2.9549999999999997e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.4881744590093149, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 7, "usd": 2.94e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5674107909871964, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 169, "output_tokens": 7, "usd": 2.9549999999999997e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.49138608400244266, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 166, "output_tokens": 7, "usd": 2.91e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5805803749972256, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 164, "output_tokens": 7, "usd": 2.88e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5943597919977037, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 169, "output_tokens": 7, "usd": 2.9549999999999997e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6489972499985015, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 7, "usd": 2.94e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.8151085829886142, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 24, "usd": 3.9599999999999994e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.47839733300497755, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 164, "output_tokens": 6, "usd": 2.8199999999999994e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.812434374995064, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 167, "output_tokens": 7, "usd": 2.925e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6116158329969039, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 166, "output_tokens": 6, "usd": 2.85e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6259523339977022, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 165, "output_tokens": 27, "usd": 4.0950000000000006e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.4696913749939995, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 175, "output_tokens": 7, "usd": 3.0449999999999998e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5866994999960298, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 7, "usd": 2.9849999999999997e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6562001250131289, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 26, "usd": 4.125e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.0578500410047127, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 22, "usd": 3.84e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6918788330076495, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 22, "usd": 3.84e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.5857718749903142, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 169, "output_tokens": 23, "usd": 3.9149999999999996e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.920216625003377, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 41, "usd": 5.025e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7396223750110948, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 27, "usd": 4.1849999999999994e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.8250499160058098, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 172, "output_tokens": 27, "usd": 4.2e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.421207166989916, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 170, "output_tokens": 24, "usd": 3.99e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.1384902499994496, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 25, "usd": 4.02e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7689123330055736, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 167, "output_tokens": 21, "usd": 3.765e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7531861669995124, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 168, "output_tokens": 22, "usd": 3.84e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7449635000084527, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 167, "output_tokens": 22, "usd": 3.825e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.0070559169980697, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 167, "output_tokens": 21, "usd": 3.765e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.009215124999173, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 172, "output_tokens": 25, "usd": 4.0799999999999996e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7450480830011657, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 166, "output_tokens": 20, "usd": 3.6899999999999996e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.785716540995054, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 170, "output_tokens": 24, "usd": 3.99e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6612562499940395, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 167, "output_tokens": 21, "usd": 3.765e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.8609524999919813, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 174, "output_tokens": 27, "usd": 4.23e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.3078387919958914, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 185, "output_tokens": 39, "usd": 5.1149999999999996e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.9252542080066632, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 179, "output_tokens": 32, "usd": 4.6049999999999994e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.825049459002912, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 179, "output_tokens": 32, "usd": 4.6049999999999994e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.9932382080005482, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 178, "output_tokens": 32, "usd": 4.59e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.9102183749928372, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 175, "output_tokens": 28, "usd": 4.3049999999999996e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.025160916004097, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 177, "output_tokens": 30, "usd": 4.455e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7736668339930475, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 25, "usd": 4.065e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.3584815000067465, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 180, "output_tokens": 42, "usd": 5.22e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.2259955830086255, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 178, "output_tokens": 31, "usd": 4.5299999999999997e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7153722920047585, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 173, "output_tokens": 26, "usd": 4.155e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7942319579888135, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 169, "output_tokens": 22, "usd": 3.8549999999999995e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.8081739579938585, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 171, "output_tokens": 25, "usd": 4.065e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.9568455839907983, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 172, "output_tokens": 25, "usd": 4.0799999999999996e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6122062089998508, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 172, "output_tokens": 26, "usd": 4.14e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.6810847919987282, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 173, "output_tokens": 26, "usd": 4.155e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7830775830079801, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 170, "output_tokens": 23, "usd": 3.93e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 1.0038807499950053, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 170, "output_tokens": 25, "usd": 4.05e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "extraction_prompt", "seconds": 0.7252972080023028, "count": 1}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "extraction_prompt", "model": "gpt-4o-mini", "input_tokens": 169, "output_tokens": 26, "usd": 4.094999999999999e-05}
+{"notebook": "06_memory_extraction", "kind": "time", "label": "decision_gate", "seconds": 26.15232991600351, "count": 60}
+{"notebook": "06_memory_extraction", "kind": "cost", "label": "decision_gate", "model": "d1.1", "input_tokens": 11671, "output_tokens": 0, "usd": 0.00023342000000000003}
+{"notebook": "06_memory_extraction", "kind": "summary", "swap": "Swap 6 of 7 \u00b7 Memory extraction", "measure": "turns handled right", "today_label": "prompt on every turn", "model_label": "gate, then prompt", "today": 0.9666666666666667, "model": 1.0, "verdict": "level", "low": 0.0, "high": 0.08333333333333333, "higher_is_better": true, "n": 60, "also": {}, "extra": {"turns sent to the prompt": ["60", "37"], "memories from filler turns": ["2", "0"], "precision": ["0.95", "1.00"], "type right": ["0.97", "0.86"], "usd per 100 turns": ["0.00371", "0.00294"], "seconds per 100 turns": ["76", "98"]}}

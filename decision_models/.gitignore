@@ -1,0 +1,4 @@
+memory_store/
+.env
+__pycache__/
+.ipynb_checkpoints/

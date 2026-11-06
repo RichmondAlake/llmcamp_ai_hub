@@ -1,0 +1,6 @@
+{"notebook": "01_semantic_chunking", "kind": "time", "label": "d1_load", "seconds": 10.268485541993869, "count": 1}
+{"notebook": "01_semantic_chunking", "kind": "time", "label": "semantic_chunker", "seconds": 1.7637371250020806, "count": 1}
+{"notebook": "01_semantic_chunking", "kind": "cost", "label": "semantic_chunker", "model": "text-embedding-3-small", "input_tokens": 5887, "output_tokens": 0, "usd": 0.00011774000000000001}
+{"notebook": "01_semantic_chunking", "kind": "time", "label": "d1_chunker", "seconds": 26.927001749994815, "count": 153}
+{"notebook": "01_semantic_chunking", "kind": "cost", "label": "d1_chunker", "model": "d1.1", "input_tokens": 26712, "output_tokens": 0, "usd": 0.0005342400000000001}
+{"notebook": "01_semantic_chunking", "kind": "summary", "swap": "Swap 1 of 7 \u00b7 Semantic chunking", "measure": "retrieval hit rate", "today_label": "semantic p95", "model_label": "decision model", "today": 0.95, "model": 0.925, "verdict": "level", "low": -0.125, "high": 0.075, "higher_is_better": true, "n": 40, "also": {"utilisation": {"today": 0.03744505264306439, "model": 0.07203263582895615, "verdict": "better", "low": 0.009923071462429692, "high": 0.07560808582358045}}, "extra": {"topic changes found": ["3 of 7", "5 of 7"], "seconds per document": ["1.8", "26.9"], "usd per document": ["0.000118", "0.000534"]}}

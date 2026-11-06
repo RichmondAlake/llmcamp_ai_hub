@@ -1,0 +1,6 @@
+{"notebook": "05_consolidation", "kind": "time", "label": "embed_pairs", "seconds": 0.9418336660019122, "count": 50}
+{"notebook": "05_consolidation", "kind": "cost", "label": "embed_pairs", "model": "text-embedding-3-small", "input_tokens": 570, "output_tokens": 0, "usd": 1.1400000000000001e-05}
+{"notebook": "05_consolidation", "kind": "time", "label": "d1_load", "seconds": 7.015088333006133, "count": 1}
+{"notebook": "05_consolidation", "kind": "time", "label": "decision_model", "seconds": 4.3902514159999555, "count": 50}
+{"notebook": "05_consolidation", "kind": "cost", "label": "decision_model", "model": "d1.1", "input_tokens": 8667, "output_tokens": 0, "usd": 0.00017334}
+{"notebook": "05_consolidation", "kind": "summary", "swap": "Swap 5 of 7 \u00b7 Consolidation and dedup", "measure": "right action", "today_label": "cut-off 0.95", "model_label": "decision model", "today": 0.2, "model": 0.88, "verdict": "better", "low": 0.52, "high": 0.82, "higher_is_better": true, "n": 50, "also": {"contradictions caught": {"today": 0.0, "model": 1.0, "verdict": "better", "low": 1.0, "high": 1.0}}, "extra": {"ms per pair": ["19", "107"], "usd per 1,000 pairs": ["0.0002", "0.0037"]}}

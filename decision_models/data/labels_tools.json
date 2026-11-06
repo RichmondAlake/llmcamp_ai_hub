@@ -1,0 +1,319 @@
+{
+ "description": "Tool selection labels. 75 agent turns, each with the one registered tool that should run, or none. The first 60 were written before any model saw them; the last 15, for send_email, post_to_slack and generate_report, were added on 2026-11-06, also before any model saw them. Do not edit after seeing results.",
+ "options": [
+  "search_memory",
+  "get_weather",
+  "convert_currency",
+  "create_calendar_event",
+  "summarise_thread",
+  "lookup_order",
+  "reset_password",
+  "recommend_book",
+  "send_email",
+  "post_to_slack",
+  "generate_report",
+  "none"
+ ],
+ "turns": [
+  {
+   "turn": "What did we agree with Tidewater about the read-only switch?",
+   "tool": "search_memory"
+  },
+  {
+   "turn": "Do we have anything on file about Priya's preferred language?",
+   "tool": "search_memory"
+  },
+  {
+   "turn": "Pull up what we noted last time about the sesame allergy.",
+   "tool": "search_memory"
+  },
+  {
+   "turn": "Who did we say owns the cutover plan?",
+   "tool": "search_memory"
+  },
+  {
+   "turn": "Remind me which incident number we gave them.",
+   "tool": "search_memory"
+  },
+  {
+   "turn": "Have we ever talked about extending the deadline?",
+   "tool": "search_memory"
+  },
+  {
+   "turn": "Check your notes: how many warehouses are left to move?",
+   "tool": "search_memory"
+  },
+  {
+   "turn": "Is it going to rain in Bristol tomorrow?",
+   "tool": "get_weather"
+  },
+  {
+   "turn": "Do I need a coat in Glasgow on Friday?",
+   "tool": "get_weather"
+  },
+  {
+   "turn": "What's it like outside in Lisbon right now?",
+   "tool": "get_weather"
+  },
+  {
+   "turn": "Will the kickoff day be sunny?",
+   "tool": "get_weather"
+  },
+  {
+   "turn": "How hot does it get in Dubai this week?",
+   "tool": "get_weather"
+  },
+  {
+   "turn": "Any chance of snow at the Leeds depot overnight?",
+   "tool": "get_weather"
+  },
+  {
+   "turn": "How much is 168 pounds in euros?",
+   "tool": "convert_currency"
+  },
+  {
+   "turn": "Turn 4,000 dollars into yen for me.",
+   "tool": "convert_currency"
+  },
+  {
+   "turn": "What would the credit be worth in US dollars?",
+   "tool": "convert_currency"
+  },
+  {
+   "turn": "Our Polish supplier quoted 900 zloty. What is that in sterling?",
+   "tool": "convert_currency"
+  },
+  {
+   "turn": "If a seat costs 14 pounds, what does that come to in Swiss francs?",
+   "tool": "convert_currency"
+  },
+  {
+   "turn": "Express 250 euros in Canadian money.",
+   "tool": "convert_currency"
+  },
+  {
+   "turn": "Put a 30 minute call with Priya in the diary for next Tuesday.",
+   "tool": "create_calendar_event"
+  },
+  {
+   "turn": "Book the Harbour Room on Monday from two to three.",
+   "tool": "create_calendar_event"
+  },
+  {
+   "turn": "Set up a catch-up with Elena next week.",
+   "tool": "create_calendar_event"
+  },
+  {
+   "turn": "Block out Friday morning for the cutover.",
+   "tool": "create_calendar_event"
+  },
+  {
+   "turn": "Invite Marcus and Joanna to a planning session on the 10th at nine.",
+   "tool": "create_calendar_event"
+  },
+  {
+   "turn": "Schedule the post-migration review for the 17th.",
+   "tool": "create_calendar_event"
+  },
+  {
+   "turn": "Give me the short version of this conversation so far.",
+   "tool": "summarise_thread"
+  },
+  {
+   "turn": "Can you boil this chat down to three bullet points?",
+   "tool": "summarise_thread"
+  },
+  {
+   "turn": "Write up what we covered today for the handover note.",
+   "tool": "summarise_thread"
+  },
+  {
+   "turn": "TL;DR of the thread please.",
+   "tool": "summarise_thread"
+  },
+  {
+   "turn": "I joined late, recap everything above for me.",
+   "tool": "summarise_thread"
+  },
+  {
+   "turn": "Condense this discussion so I can paste it into the ticket.",
+   "tool": "summarise_thread"
+  },
+  {
+   "turn": "Where is order 77120?",
+   "tool": "lookup_order"
+  },
+  {
+   "turn": "Has the handheld scanner shipment left the warehouse yet?",
+   "tool": "lookup_order"
+  },
+  {
+   "turn": "What's the delivery status on PO-4471?",
+   "tool": "lookup_order"
+  },
+  {
+   "turn": "Find the tracking details for the replacement printers we bought.",
+   "tool": "lookup_order"
+  },
+  {
+   "turn": "Did purchase 88213 get dispatched?",
+   "tool": "lookup_order"
+  },
+  {
+   "turn": "When will the batteries I ordered arrive?",
+   "tool": "lookup_order"
+  },
+  {
+   "turn": "I'm locked out of the admin console.",
+   "tool": "reset_password"
+  },
+  {
+   "turn": "My login has expired, send me a new one.",
+   "tool": "reset_password"
+  },
+  {
+   "turn": "Marcus forgot his credentials, please sort that out.",
+   "tool": "reset_password"
+  },
+  {
+   "turn": "I can't sign in, the system says my password is wrong.",
+   "tool": "reset_password"
+  },
+  {
+   "turn": "Issue a fresh reset link for joanna.reyes@tidewater-freight.example.",
+   "tool": "reset_password"
+  },
+  {
+   "turn": "Help, the console keeps rejecting me after the policy change.",
+   "tool": "reset_password"
+  },
+  {
+   "turn": "Suggest something to read about running engineering teams.",
+   "tool": "recommend_book"
+  },
+  {
+   "turn": "What should I pick up for a long train ride?",
+   "tool": "recommend_book"
+  },
+  {
+   "turn": "I want a good novel set at sea, any ideas?",
+   "tool": "recommend_book"
+  },
+  {
+   "turn": "Name a title that explains systems thinking to a beginner.",
+   "tool": "recommend_book"
+  },
+  {
+   "turn": "My new team lead needs a primer on management. What would you hand them?",
+   "tool": "recommend_book"
+  },
+  {
+   "turn": "Looking for an audiobook for the commute.",
+   "tool": "recommend_book"
+  },
+  {
+   "turn": "Thanks, that's all for now.",
+   "tool": "none"
+  },
+  {
+   "turn": "Hello there!",
+   "tool": "none"
+  },
+  {
+   "turn": "What does API stand for?",
+   "tool": "none"
+  },
+  {
+   "turn": "Write me a haiku about warehouses.",
+   "tool": "none"
+  },
+  {
+   "turn": "Explain what a load balancer does in one sentence.",
+   "tool": "none"
+  },
+  {
+   "turn": "Is a tomato a fruit?",
+   "tool": "none"
+  },
+  {
+   "turn": "Fix the grammar in this: me and him goes to the depot.",
+   "tool": "none"
+  },
+  {
+   "turn": "Translate 'good morning' into Spanish.",
+   "tool": "none"
+  },
+  {
+   "turn": "Great work today.",
+   "tool": "none"
+  },
+  {
+   "turn": "What is 17 times 6?",
+   "tool": "none"
+  },
+  {
+   "turn": "Why do certificates expire at all?",
+   "tool": "none"
+  },
+  {
+   "turn": "Send the Q3 report to Sarah.",
+   "tool": "send_email"
+  },
+  {
+   "turn": "Don't email it, just post it in Slack.",
+   "tool": "post_to_slack"
+  },
+  {
+   "turn": "Generate the Q3 sales report.",
+   "tool": "generate_report"
+  },
+  {
+   "turn": "Email Omar the corrected invoice.",
+   "tool": "send_email"
+  },
+  {
+   "turn": "Let the team know in #ops that the deploy is done.",
+   "tool": "post_to_slack"
+  },
+  {
+   "turn": "Put together a report on last month's support tickets.",
+   "tool": "generate_report"
+  },
+  {
+   "turn": "Drop a message in the engineering channel saying the build is green.",
+   "tool": "post_to_slack"
+  },
+  {
+   "turn": "Mail the signed contract to legal@tidewater-freight.example.",
+   "tool": "send_email"
+  },
+  {
+   "turn": "Make me a report of Q2 revenue by region.",
+   "tool": "generate_report"
+  },
+  {
+   "turn": "Ping #general that lunch has arrived.",
+   "tool": "post_to_slack"
+  },
+  {
+   "turn": "Forward the meeting notes to Elena by email.",
+   "tool": "send_email"
+  },
+  {
+   "turn": "Create the weekly KPI report for the board.",
+   "tool": "generate_report"
+  },
+  {
+   "turn": "Tell Priya on Slack that I'm running ten minutes late.",
+   "tool": "post_to_slack"
+  },
+  {
+   "turn": "Write up a report on Tuesday's outage, but don't send it to anyone yet.",
+   "tool": "generate_report"
+  },
+  {
+   "turn": "Don't post anything in Slack; email Sarah the numbers instead.",
+   "tool": "send_email"
+  }
+ ]
+}
