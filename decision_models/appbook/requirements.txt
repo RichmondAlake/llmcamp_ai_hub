@@ -1,0 +1,12 @@
+# The app runs in the notebooks' environment (../requirements.txt: memorizz, transformers, torch,
+# sentence-transformers, langchain) and adds a web server. Pins are lower bounds.
+fastapi>=0.115
+uvicorn>=0.30
+sse-starlette>=2.0
+python-dotenv>=1.0
+
+# Tests (tests/): offline contracts, live API checks, browser checks.
+# After installing, run `python -m playwright install chromium` once.
+pytest>=8.0
+httpx>=0.27
+playwright>=1.48

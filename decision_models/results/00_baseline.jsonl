@@ -1,0 +1,7 @@
+{"notebook": "00_baseline", "kind": "time", "label": "agent_turn", "seconds": 2.064406624995172, "count": 1}
+{"notebook": "00_baseline", "kind": "cost", "label": "agent_turn", "model": "gpt-4o-mini", "input_tokens": 6207, "output_tokens": 16, "usd": 0.00094065}
+{"notebook": "00_baseline", "kind": "time", "label": "agent_turn", "seconds": 1.2467445420043077, "count": 1}
+{"notebook": "00_baseline", "kind": "cost", "label": "agent_turn", "model": "gpt-4o-mini", "input_tokens": 6256, "output_tokens": 28, "usd": 0.0009551999999999999}
+{"notebook": "00_baseline", "kind": "time", "label": "agent_turn", "seconds": 2.7226723750063684, "count": 1}
+{"notebook": "00_baseline", "kind": "cost", "label": "agent_turn", "model": "gpt-4o-mini", "input_tokens": 12691, "output_tokens": 69, "usd": 0.00194505}
+{"notebook": "00_baseline", "kind": "time", "label": "judged_turn", "seconds": 6.9101179169956595, "count": 1}

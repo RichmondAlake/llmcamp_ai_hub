@@ -1,0 +1,18 @@
+# Python 3.11. Install with: pip install -r requirements.txt
+memorizz[filesystem]==0.17.16
+transformers>=5.19
+torch
+torchvision
+pillow
+langchain-text-splitters>=1.1
+langchain-experimental>=0.4
+langchain-openai
+sentence-transformers
+pandas
+matplotlib
+tiktoken
+python-dotenv
+requests
+ipykernel
+nbclient
+nbformat

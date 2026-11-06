@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-sidebar="expanded" data-ctxrail="expanded">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decision Models in Agent Memory</title>
+  <meta name="description" content="The twenty decision points of an agent's memory loop, placed in a reference architecture: the typical implementation beside d1, Jev and OpenAI's Decisions API, live and measured." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2313151b'/%3E%3Cpath d='M16 6v6M16 12l-7 6M16 12l7 6' fill='none' stroke='%23199e70' stroke-width='2.4' stroke-linecap='round'/%3E%3Ccircle cx='9' cy='22' r='3' fill='%23199e70'/%3E%3Ccircle cx='23' cy='22' r='3' fill='none' stroke='%23199e70' stroke-width='2'/%3E%3C/svg%3E" />
+
+  <!-- Theme, navigation width and the context rail are set before paint to avoid layout flashes. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("dm-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+        var s = localStorage.getItem("dm-sidebar");
+        document.documentElement.setAttribute("data-sidebar", s === "collapsed" ? "collapsed" : "expanded");
+        var c = localStorage.getItem("dm-ctxrail");
+        document.documentElement.setAttribute("data-ctxrail", c === "collapsed" ? "collapsed" : "expanded");
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/decide.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="stage" id="stage" tabindex="-1"></main>
+    <aside class="ctxrail" id="ctxrail-shell" aria-label="Model context">
+      <button class="ctxrail-toggle" id="ctxrail-toggle" type="button" aria-controls="ctxrail"></button>
+      <button class="ctxrail-mini" id="ctxrail-mini" type="button" aria-label="Expand the model context panel" title="Expand the model context panel"></button>
+      <div class="ctxrail-body" id="ctxrail"></div>
+    </aside>
+  </div>
+  <button class="scrim" id="scrim" aria-label="Close menu" hidden></button>
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+
+  <section class="data-explorer" id="data-explorer" aria-label="Data explorer">
+    <div class="explorer-resizer" id="explorer-resizer" role="separator" aria-orientation="horizontal" aria-label="Resize data explorer"><i></i></div>
+    <button class="explorer-handle" id="explorer-toggle" aria-expanded="false" aria-controls="explorer-body">
+      <span class="explorer-title"><i class="db-glyph">DB</i><strong>Data Explorer</strong><span id="explorer-summary">Labels, notebook results and the MemoRizz store, read-only</span></span>
+      <span class="explorer-live"><i class="explorer-status-dot"></i><span id="explorer-live-label">Live activity</span></span>
+      <span class="explorer-chevron" aria-hidden="true">⌃</span>
+    </button>
+    <div class="explorer-body" id="explorer-body" hidden>
+      <aside class="explorer-tables">
+        <div class="explorer-section-head"><span>Tables</span><button id="explorer-refresh" title="Refresh the catalogue">↻</button></div>
+        <label class="explorer-search"><span class="sr-only">Filter tables</span><input id="explorer-filter" placeholder="Filter tables…" /></label>
+        <div class="explorer-table-list" id="explorer-table-list"></div>
+      </aside>
+      <section class="explorer-data">
+        <div class="explorer-toolbar">
+          <div><span class="explorer-eyebrow" id="explorer-role">SELECT A TABLE</span><h2 id="explorer-table-name">Read-only tables</h2></div>
+          <div class="explorer-pagination"><button id="explorer-scope" class="explorer-scope active" title="MemoRizz tables: this session's store, or every store under memory_store/">This session</button><button id="explorer-prev" aria-label="Previous page">←</button><span id="explorer-page">—</span><button id="explorer-next" aria-label="Next page">→</button></div>
+        </div>
+        <div class="explorer-grid-wrap" id="explorer-grid"><div class="explorer-empty">Choose a table to read its rows. Vectors are never sent; long text is cut to 300 characters.</div></div>
+      </section>
+      <aside class="explorer-activity">
+        <div class="explorer-section-head"><span>Session activity</span><span class="explorer-live-word">LIVE</span></div>
+        <div class="explorer-activity-list" id="explorer-activity-list"></div>
+      </aside>
+    </div>
+  </section>
+
+  <script src="/app.js"></script>
+  <script src="/charts.js"></script>
+  <script src="/architecture.js"></script>
+  <script src="/pages.js"></script>
+  <script src="/results.js"></script>
+</body>
+</html>

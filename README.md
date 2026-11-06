@@ -14,6 +14,8 @@ inspectable notebook cells, then explore the same experiments in local appbooks.
 | Agent Memory Appbook | Explore four interactive labs with live chat, context inspection, token counts, and architecture diagrams. | [Application & setup](agent_memory/appbook/README.md) |
 | System One models from scratch | Six experiments with Jev, Oracle AI Database, Voyage and OpenAI: reranking, summary gates, routing, tools/skills, chunking, and Opus/Sol/Luna memory readers. | [Course & notebooks](system_one_models/README.md) |
 | System One Appbook | Learn the experiments, inspect short code cells, run live comparisons and explore Oracle-backed charts and evidence. | [Application & setup](system_one_models/appbook/README.md) |
+| Decision models in agent memory | Seven memory techniques (semantic chunking, reranking, the semantic cache, memory routing, deduplication, memory extraction and tool selection), each built the usual way, broken on the cases where it fails, swapped for a decision model and measured on labelled data; then d1, Jev and OpenAI Decisions on the same questions. | [Notebooks & setup](decision_models/README.md) |
+| Decision Models Appbook | The seven swaps live: the verdict first, today's method and three decision models side by side on the same input, the notebooks' scorecards, figures and per-request cost. | [Application & setup](decision_models/appbook/README.md) |
 
 ## Start the System One course
 
